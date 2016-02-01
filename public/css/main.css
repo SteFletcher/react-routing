@@ -1,0 +1,23 @@
+body, html {
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin:0
+}
+
+body{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    /*align-content: center;*/
+    /*align-content: flex-end;*/
+    /*align-content: flex-start;*/
+    /*align-items: center;*/
+    align-items: flex-end;
+    /*align-items: flex-start;*/
+    /*justify-content: flex-start;*/
+    /*justify-content: flex-end;*/
+    justify-content: center;
+    /*flex-direction: column-reverse;*/
+    background-color: #3c3c3c;
+}
