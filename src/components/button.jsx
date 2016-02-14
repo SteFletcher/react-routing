@@ -9,8 +9,8 @@ var flexboxStyles = {
     google: {
         display: 'flex',
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         width: '400px',
         height: '50px',
