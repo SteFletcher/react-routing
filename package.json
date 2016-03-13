@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha test",
     "build": "browserify -t [ babelify --presets [ react ] ] ./src/app.jsx -o ./public/js/bundle.js -d",
-    "watch": "watchify -t [ babelify --presets [ react ] ] ./src/app.jsx -o ./public/js/bundle.js -d"
+    "watch": "watchify -v -t [ babelify --presets [ react ] ] ./src/app.jsx -o ./public/js/bundle.js -d",
+    "livereload": "livereload public",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,9 +17,14 @@
     "babelify": "^7.2.0",
     "bootstrap": "^3.3.6",
     "browsify": "0.0.4",
+    "express": "^4.13.4",
+    "express-livereload": "0.0.24",
     "install": "^0.4.1",
     "lodash": "^4.2.1",
+    "postcss": "^5.0.16",
+    "postcss-js": "^0.1.1",
     "react": "^0.14.7",
+    "react-breakpoints-mixin": "^1.0.0",
     "react-dom": "^0.14.7",
     "react-fontawesome": "^0.3.3",
     "react-router": "^2.0.0-rc5",

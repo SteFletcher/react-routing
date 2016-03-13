@@ -1,20 +1,44 @@
 var React = require('react');
-var lightenDarken = require('../utils/lightendarken.jsx').LightenDarkenColor;
 var _ = require('lodash');
+var lightenDarken = require('../utils/lightendarken.jsx').LightenDarkenColor;
+
 // flexbox styles center text inside of button
 var flexboxStyles = {
-    title: {
-        color: 'white'
+    textContainer: {
+        // backgroundColor: 'green',
+        display: 'flex',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        marginLeft: '10',
+        marginRight: '10',
+        borderLeft: '1',
+        fontSize: '18'
+    },
+    buttonContentContainer: {
+        color: 'white',
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'row',
+        marginLeft: '20',
+        marginRight: '10',
+        alignContent: 'stretch'
     },
     google: {
         display: 'flex',
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
-        width: '400px',
-        height: '50px',
-        backgroundColor: '#D50F25'
+        //width: '100%',
+        height: '55px',
+        marginTop: '5',
+        marginBottom: '5',
+        backgroundColor: '#D50F25',
+        borderRadius: '5',
+        boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.25)',
+        textShadow: '0 1px 0 rgba(0, 0, 0, 0.3)',
+        lineHeight: '0'
     }
 };
 
@@ -31,7 +55,8 @@ var SocialButton = React.createClass({
         return {
             clicked: false,
             mouseDown: false,
-            backgroundColor: null
+            backgroundColor: null,
+            buttonStyle: flexboxStyles.local
         }
     },
 
@@ -66,22 +91,30 @@ var SocialButton = React.createClass({
         if (this.props.type == "facebook") {
             this.setState({
                 iconClass: "fa fa-facebook fa-2x",
-                buttonText: "Facebook Login",
+                buttonText: "Login with Facebook",
                 buttonStyle: flexboxStyles.facebook
             })
         } else if (this.props.type == "google") {
             this.setState({
                 iconClass: "fa fa-google fa-2x",
-                buttonText: "Google Login",
+                buttonText: "Login with Google",
                 buttonStyle: flexboxStyles.google
             })
         } else if (this.props.type == "local") {
             this.setState({
                 iconClass: "fa fa-sign-in fa-2x",
-                buttonText: "Login",
+                buttonText: "Login with Oggleshots",
                 buttonStyle: flexboxStyles.local
             })
         }
+        // if(this.props.width){
+        //     var tmpStyle = this.state.buttonStyle;
+        //     tmpStyle.width = this.props.width;
+        //     debugger
+        //     this.setState({
+        //         buttonStyle: tmpStyle
+        //     });
+        // }
     },
 
     render() {
@@ -89,8 +122,11 @@ var SocialButton = React.createClass({
             <div style={this.state.buttonStyle} 
                     onMouseDown={this.onClick}
                     onMouseUp={this.onClick}>
-                <div style={flexboxStyles.title}>
-                    <i className={this.state.iconClass}></i>
+                <div style={flexboxStyles.buttonContentContainer}>
+                    <i style={ {width: '30'} } className={this.state.iconClass}></i>
+                    <div style={flexboxStyles.textContainer}>
+                        <span>{this.state.buttonText}</span>
+                    </div>
                 </div>
 
             </div>
