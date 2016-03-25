@@ -2,11 +2,11 @@
  * Created by stefletcher on 30/01/2016.
  */
 var React = require('react');
-import {Button} from '../components/button.jsx';
+import { Button } from '../components/button.jsx';
 var _ = require('lodash');
 var breakpoints = require('../media-breakpoints.js').breakpoints;
 
-var homeStyles = {
+var landingStyles = {
     container: {
         padding: '50',
         borderRadius: '10',
@@ -25,13 +25,12 @@ var homeStyles = {
         flex: '1',
         flexDirection: 'column',
         alignItems: 'stretch',
-        alignContent: 'stretch',
-        width: 350}
+        alignContent: 'stretch'}
 }
 
-var HomeScene = React.createClass({
+var LandingScene = React.createClass({
     getInitialState: function() {
-        return {homeStyles: homeStyles};
+        return {LandingStyles: LandingStyles};
     },
     componentWillMount: function() {
         return this.mediaAdjust();
@@ -43,20 +42,20 @@ var HomeScene = React.createClass({
         console.log(breakpoints);
         console.log(breakpoints.mobile);
         if(window.innerWidth < breakpoints.mobile.width){
-            homeStyles.container.alignSelf = 'stretch';
+            LandingStyles.container.alignSelf = 'stretch';
         }else{
-            homeStyles.container.alignSelf = 'center';
+            LandingStyles.container.alignSelf = 'center';
         }
-        this.setState({homeStyles: _.cloneDeep(homeStyles)});
+        this.setState({LandingStyles: _.cloneDeep(LandingStyles)});
     },
     render() {
         return (
-            <div style={this.state.homeStyles.container}>
-                <div id="socialButtonContainer" style={this.state.homeStyles.panelWrapper}>
-                    <div id="socialButtonPanel" style={this.state.homeStyles.panel}>
-                        <Button type="local" link="/login" showIcon="true" />
-                        <Button type="facebook" link="/" showIcon="true" />
-                        <Button type="google" link="/"  showIcon="true" />
+            <div style={this.state.LandingStyles.container}>
+                <div id="socialButtonContainer" style={this.state.LandingStyles.panelWrapper}>
+                    <div id="socialButtonPanel" style={this.state.LandingStyles.panel}>
+                        <Button type="local" showIcon="true"/>
+                        <Button type="facebook" showIcon="true"/>
+                        <Button type="google" showIcon="true"/>
                     </div>
                 </div>
             </div>
@@ -64,4 +63,4 @@ var HomeScene = React.createClass({
     }
 });
 
-module.exports = HomeScene;
+module.exports = LandingScene;

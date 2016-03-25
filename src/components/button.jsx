@@ -1,6 +1,8 @@
 var React = require('react');
 var _ = require('lodash');
 var lightenDarken = require('../utils/lightendarken.jsx').LightenDarkenColor;
+var breakpoints = require('../media-breakpoints.js').breakpoints;
+import { Link } from 'react-router'
 
 // flexbox styles center text inside of button
 var flexboxStyles = {
@@ -50,13 +52,14 @@ flexboxStyles.local = _.cloneDeep(flexboxStyles.google);
 flexboxStyles.local.backgroundColor = '#e82c0c';
 
 
-var SocialButton = React.createClass({
+export const Button = React.createClass({
     getInitialState() {
         return {
             clicked: false,
             mouseDown: false,
             backgroundColor: null,
-            buttonStyle: flexboxStyles.local
+            buttonStyle: flexboxStyles.local,
+            link: this.props.link || '/notset'
         }
     },
 
@@ -80,14 +83,19 @@ var SocialButton = React.createClass({
     },
 
     propTypes: {
-        type: React.PropTypes.string.isRequired
+        type: React.PropTypes.string.isRequired,
+        link: React.PropTypes.string
     },
 
     componentWillMount() {
+        //this.setState({link: this.props.link});
         this.setStyles();
     },
 
     setStyles() {
+        if(!eval(this.props.showIcon)){
+            this.setState({iconDisplay: {display: 'none'}})
+        }
         if (this.props.type == "facebook") {
             this.setState({
                 iconClass: "fa fa-facebook fa-2x",
@@ -103,18 +111,25 @@ var SocialButton = React.createClass({
         } else if (this.props.type == "local") {
             this.setState({
                 iconClass: "fa fa-sign-in fa-2x",
-                buttonText: "Login with Oggleshots",
+                buttonText: "Login",
                 buttonStyle: flexboxStyles.local
             })
         }
-        // if(this.props.width){
-        //     var tmpStyle = this.state.buttonStyle;
-        //     tmpStyle.width = this.props.width;
-        //     debugger
-        //     this.setState({
-        //         buttonStyle: tmpStyle
-        //     });
-        // }
+        this.mediaAdjust();
+    },
+    componentDidMount: function() {
+        window.addEventListener('resize', this.setStyles);
+    },
+
+    mediaAdjust: function() {
+        var styles =  _.cloneDeep(flexboxStyles.textContainer);
+        if(window.innerWidth < breakpoints.mobile.width
+            ||  this.props.centerLabel ){
+            styles.justifyContent = 'center';
+        }else{
+            styles.justifyContent = 'flex-start';
+        }
+        this.setState({textContainer: styles});
     },
 
     render() {
@@ -123,9 +138,17 @@ var SocialButton = React.createClass({
                     onMouseDown={this.onClick}
                     onMouseUp={this.onClick}>
                 <div style={flexboxStyles.buttonContentContainer}>
-                    <i style={ {width: '30'} } className={this.state.iconClass}></i>
-                    <div style={flexboxStyles.textContainer}>
-                        <span>{this.state.buttonText}</span>
+                    <i style={this.state.iconDisplay} className={this.state.iconClass}></i>
+                    <div style={this.state.textContainer}>
+                        <Link to={this.state.link} style={
+                                {
+                                    textDecoration: 'none',
+                                    color: 'inherit'
+                                }
+                            }>
+                            <span>{this.state.buttonText}</span>
+                        </Link>
+
                     </div>
                 </div>
 
@@ -136,4 +159,4 @@ var SocialButton = React.createClass({
 
 });
 
-module.exports = SocialButton;
+//module.exports = SocialButton;
